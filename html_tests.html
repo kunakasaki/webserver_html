@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+      }
+
+      h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 40px;
+        font-weight: 800;
+        text-align: center;
+        text-rendering: optimizeLegibility;
+        text-transform: uppercase;
+        color: #e0dfdc;
+        letter-spacing: 0.1em;
+        margin: 0;
+        padding: 10px 0;
+      }
+
+      body {
+        margin: 0;
+        background-color: #212121;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+        padding: 0px 20px;
+      }
+
+      .tabs {
+        overflow: hidden;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+      }
+
+      .tabs button {
+        background-color: #444;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 30px;
+        margin: 0px 1%;
+        transition: 0.3s;
+        color: white;
+        border-radius: 8px 8px 0 0;
+        position: relative;
+        top: 5px;
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .tabs button:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .tabs button.active {
+        background-color: #212121;
+        color: white;
+        border-bottom: 3px solid #e0dfdc;
+      }
+
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border-top: none;
+      }
+
+      .content {
+        padding: 30px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .card-grid {
+        width: 400px;
+        margin: 0 auto;
+        display: inline-grid;
+        grid-gap: 2rem;
+      }
+
+      .card {
+        background-color: #2e2e2e;
+        -webkit-box-shadow: 9px 8px 8px -6px rgba(0, 0, 0, 0.68);
+        box-shadow: 9px 8px 8px -6px rgba(0, 0, 0, 0.68);
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+
+      .card-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 17px;
+        font-weight: 200;
+        text-align: center;
+        text-rendering: optimizeLegibility;
+        color: #e0dfdc;
+        letter-spacing: 0.1em;
+      }
+      .state {
+        font-size: 1.2rem;
+        color: #fff;
+      }
+      .stateverde {
+        font-size: 1.2rem;
+        color: #000;
+      }
+      .statevermelho {
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      input[type="text"] {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.8rem;
+        padding: 12px 20px;
+        margin: 0px 0;
+        box-sizing: border-box;
+        color: #fff;
+        border-radius: 50px;
+        border-color: #b52634;
+        background-color: #2e2e2e;
+      }
+
+      input[type="color"] {
+        padding: 0px 0px;
+        margin: 0px 0px;
+        border-radius: 50px;
+        border-color: #b52634;
+        background-color: #2e2e2e;
+      }
+
+      input[type="color"] {
+        border-color: #b52634;
+      }
+
+      input[type="color"]::-webkit-color-swatch {
+        border-radius: 50px;
+      }
+
+      .switch2 {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+      }
+
+      .slider {
+        -webkit-appearance: none;
+        margin: 0 auto;
+        width: 100%;
+        height: 5px;
+        margin: 0 auto;
+        width: 300px;
+        height: 6px;
+        border-radius: 10px;
+        background: #b52634;
+        -webkit-box-shadow: 9px 8px 8px -6px rgba(0, 0, 0, 0.68);
+        box-shadow: 9px 8px 8px -6px rgba(0, 0, 0, 0.68);
+      }
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 30px;
+        background: #b52634;
+        -webkit-box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+      }
+      .slider::-moz-range-thumb {
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background: #034078;
+        cursor: pointer;
+      }
+      .switch2 input {
+        display: none;
+      }
+
+      .slider2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #121212;
+        border-radius: 34px;
+      }
+
+      .slider2:before {
+        position: absolute;
+        content: "";
+        height: 25px;
+        width: 25px;
+        left: 0px;
+        bottom: 0px;
+        background-color: #2e2e2e;
+        -webkit-box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.45);
+        box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.45);
+        transition: 0.4s;
+        border-radius: 68px;
+      }
+
+      input:checked + .slider2 {
+        background-color: #b52634;
+      }
+
+      input:checked + .slider2:before {
+        -webkit-transform: translateX(25px);
+        -ms-transform: translateX(25px);
+        transform: translateX(25px);
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,800" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  </head>
+
+  <body>
+    <div class="topnav">
+      <h1>Basement LedBoard Controller</h1>
+      <div class="tabs">
+        <button class="tablinks active" onclick="openTab(event, 'Config')">Config</button>
+        <button class="tablinks" onclick="openTab(event, 'Effects')">Effects</button>
+        <button class="tablinks" onclick="openTab(event, 'Games')">Games</button>
+      </div>
+    </div>
+
+    <div id="Config" class="tabcontent" style="display: block">
+      <div class="content">
+        <div class="card-grid">
+          <div class="card">
+            <p class="card-title">Message</p>
+            <p>
+              <input type="text" id="text1" value="" onkeydown="textenter(this)" />
+              <input type="color" id="color1" value="#00ff00" onchange="color1(this)" />
+            </p>
+            <label class="switch2">
+              <input type="checkbox" onchange="switch1(this)" id="button1" />
+              <span class="slider2"></span>
+            </label>
+          </div>
+          <!-- Add more cards as needed -->
+        </div>
+      </div>
+    </div>
+
+    <div id="Effects" class="tabcontent">
+      <div class="content">
+        <div class="card-grid">
+          <div class="card">
+            <p class="card-title">Timed Message</p>
+            <p>
+              <input type="text" id="text2" value="" onkeydown="textenter2(this)" />
+            </p>
+            <div class="slidecontainer">
+              <p class="switch">
+                <input type="range" onchange="slider1(this)" id="slider1" min="0" max="20" value="0" step="1" class="slider" />
+              </p>
+            </div>
+            <p class="state">Time: <span id="timerValue"></span> minutes</p>
+            <label class="switch2">
+              <input type="checkbox" onchange="switch2(this)" id="button2" />
+              <span class="slider2"></span>
+            </label>
+          </div>
+          <!-- Add more cards as needed -->
+        </div>
+      </div>
+    </div>
+
+    <div id="Games" class="tabcontent">
+      <div class="content">
+        <div class="card-grid">
+          <div class="card">
+            <p class="card-title">Instagram Messages</p>
+            <label class="switch2">
+              <input type="checkbox" onchange="switch3(this)" id="button3" checked />
+              <span class="slider2"></span>
+            </label>
+            <p class="card-title">Music On-Off</p>
+            <label class="switch2">
+              <input type="checkbox" onchange="switch4(this)" id="button4" />
+              <span class="slider2"></span>
+            </label>
+            <p>
+              <select id="button5" onchange="switch5(this)">
+                <option value="0">LED Chord</option>
+                <option value="1">FairyNest</option>
+              </select>
+            </p>
+          </div>
+          <!-- Add more cards as needed -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      var gateway = `ws://${window.location.hostname}/ws`;
+      var websocket;
+      var txt;
+
+      window.addEventListener("load", onLoad);
+
+      function onLoad(event) {
+        initWebSocket();
+      }
+
+      function getValues() {
+        websocket.send("getValues");
+      }
+
+      function initWebSocket() {
+        console.log("Trying to open a WebSocket connection...");
+        websocket = new WebSocket(gateway);
+        websocket.onopen = onOpen;
+        websocket.onclose = onClose;
+        websocket.onmessage = onMessage;
+      }
+
+      function onOpen(event) {
+        console.log("Connection opened");
+        getValues();
+      }
+
+      function onClose(event) {
+        console.log("Connection closed");
+        setTimeout(initWebSocket, 2000);
+      }
+
+      function onMessage(event) {
+        console.log(event.data);
+        if (event.data == "timerdone") {
+          document.getElementById("button2").click();
+        } else {
+          var myObj = JSON.parse(event.data);
+          document.getElementById("button1").checked = myObj["button1"];
+          document.getElementById("button2").checked = myObj["button2"];
+          document.getElementById("button3").checked = myObj["button3"];
+          document.getElementById("button4").checked = myObj["button4"];
+          document.getElementById("button5").value = myObj["button5"];
+          document.getElementById("slider1").value = myObj["slider1"];
+          document.getElementById("color1").value = myObj["color1"];
+          document.getElementById("timerValue").innerHTML = myObj["slider1"];
+        }
+      }
+
+      function textenter(element) {
+        if (event.key === "Enter") {
+          if (document.getElementById("button1").checked) websocket.send("1t" + element.value);
+          else document.getElementById("button1").click();
+        } else txt = element.value;
+      }
+
+      function textenter2(element) {
+        if (event.key === "Enter") {
+          websocket.send("2t" + element.value);
+          if (!document.getElementById("button2").checked) document.getElementById("button2").click();
+        }
+      }
+
+      function switch1(element) {
+        if (element.checked) {
+          if (document.getElementById("text1").value == "") element.checked = false;
+          else {
+            document.getElementById("button2").disabled = true;
+            document.getElementById("button3").disabled = true;
+            document.getElementById("button4").disabled = true;
+            websocket.send("1b" + document.getElementById("text1").value + "t");
+          }
+        } else {
+          document.getElementById("button2").disabled = false;
+          document.getElementById("button3").disabled = false;
+          document.getElementById("button4").disabled = false;
+          websocket.send("1bf");
+        }
+      }
+
+      function switch2(element) {
+        if (element.checked) {
+          if (document.getElementById("text2").value == "" || document.getElementById("slider1").value == 0) element.checked = false;
+          else {
+            document.getElementById("button1").disabled = true;
+            document.getElementById("button3").disabled = true;
+            document.getElementById("button4").disabled = true;
+            websocket.send("2b" + document.getElementById("text2").value + "t");
+          }
+        } else {
+          document.getElementById("button1").disabled = false;
+          document.getElementById("button3").disabled = false;
+          document.getElementById("button4").disabled = false;
+          websocket.send("2bf");
+        }
+      }
+
+      function switch3(element) {
+        websocket.send("3b" + element.checked);
+      }
+
+      function switch4(element) {
+        websocket.send("4b" + element.checked);
+      }
+
+      function switch5(element) {
+        websocket.send("5b" + element.value);
+      }
+
+      function slider1(element) {
+        var sliderValue = element.value;
+        document.getElementById("timerValue").innerHTML = sliderValue;
+        websocket.send("2t" + document.getElementById("text2").value);
+        websocket.send("1s" + sliderValue);
+      }
+
+      function color1(element) {
+        websocket.send("1c" + element.value);
+      }
+    </script>
+  </body>
+</html>
